@@ -18,16 +18,16 @@ let person3 = {
     }]
 }
 
-for (let i = 0; i < Object.keys(person3).length; i ++){
-    console.log(Object.keys(person3)[i])
+function parseThrough(x){
+    for (let i = 0; i < Object.keys(x).length; i++){ //everything in an array
+        if(Array.isArray(Object.values(x)[i])){
+            console.log(Object.values(x)[i])
+        } else if(!Array.isArray(Object.values(x)[i])){
+            console.log(Object.values(x)[i])
+        }
+    }
 }
-
-console.log(`My favorite types of pizza are ${person3.pizza[0]} and ${person3.pizza[1]}.`)
-console.log(`For taco night, I'll take ${person3.tacos}.`)
-console.log(`My favorite burgers are ${person3.burgers}.`)
-console.log(`My favorite flavors of ice cream are ${person3.ice_cream[0]}, ${person3.ice_cream[1]}, and ${person3.ice_cream[2]}.`)
-console.log(`Lastly, I get my ${person3.shakes[0].oberwise} shakes from Oberwise, ${person3.shakes[0].dunkin} from Dunkin', ${person3.shakes[0].mcDonalds} from McDonalds, ${person3.shakes[0].cupids_candies} from Cupid's Candies, and ${person3.shakes[0].culvers} from Culvers. `)
-
+console.log(parseThrough(person3))
 
 //=======Exercise #2=========//
 /*
@@ -47,35 +47,25 @@ class Person{
         this.hair_color = hair_color;
         this.location = location;
     }
-    // Use an arrow to create the printInfo method
-    printInfo = () => {
-        console.log(`This person is ${this.name}. He/She is ${this.age} year(s) old, has ${this.hair_color}, and lives in ${this.location}.`);
-        return (this.name == 'Brendan' && this.age > 0) ? this.age+=3 : this.age++;
-    }
 
     incrementAge = () => {
         return (this.name == 'Brendan' && this.age > 0) ? this.age+=3 : this.age++;
     }
 
+    printInfo = () => {
+        console.log(`This person is ${this.name}. He/She is ${this.incrementAge()} year(s) old, has ${this.hair_color} hair, and lives in ${this.location}.`)
+    }
 }
 
 let mary = new Person('Mary', 1, 'Blonde', 'California');
 
 console.log(mary.printInfo())
 console.log(mary.printInfo())
-console.log(mary.printInfo())
 
-let brendan = new Person('Brendan', 1, 'Black', 'Massachusetts');
+let brendan = new Person('Brendan', 2, 'Black', 'Massachusetts');
 
 console.log(brendan.printInfo())
 console.log(brendan.printInfo())
-console.log(brendan.printInfo())
-console.log(brendan.printInfo())
-
-
-
-// Create another arrow function for the addAge method that takes a single parameter
-// Adding to the age 
 
 
 // =============Exercise #3 ============//
@@ -86,16 +76,22 @@ console.log(brendan.printInfo())
     If the length of the string is less than 10 console log "Small Number"
 */
 
+
 function lengthGreaterTen(str){
     return new Promise( (resolve, reject) => {
         if(str.length >= 10){
-            resolve('Big word')
+            resolve(true)
         } else {
-            reject('Small Number')
+            reject(false)
         }
     })
 }
 
-console.log(lengthGreaterTen('mouse'))
-console.log(lengthGreaterTen('fabricating'))
-console.log(lengthGreaterTen('cat'))
+lengthGreaterTen('fabricating')
+    .then( (result) => {
+        console.log(`Greater than 10: ${result}`)
+    })
+
+    .catch( (error) => {
+        console.log(`Less than or equal to 10: ${error}`)
+    })
